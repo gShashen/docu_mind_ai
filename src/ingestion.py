@@ -15,7 +15,7 @@ def exctract_text_from_pdf(file):
     return pages
 
 
-def chunk_text(pages,chunk_size=500,overlap=50):
+def chunk_text(pages,chunk_size=100,overlap=20):
 
     chunks = []
     chunk_id = 0
