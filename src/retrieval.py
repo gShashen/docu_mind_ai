@@ -1,14 +1,19 @@
-import faiss
+from sentence_transformers import SentenceTransformer
 
 def retrieve_chunks(query,index,chunks,model,top_k=3):
     top_k = min(top_k, len(chunks))
-    embedded_query = model.encode([query])
-    distance,indices = index.search(embedded_query,top_k)
+    embedded_query = model.encode([query]).astype("float32")
+    distances,indices = index.search(embedded_query,top_k)
 
     retrieved_chunks  = []
 
-    for i in indices[0]:
-        retrieved_chunks.append(chunks[i])
+    for i,idx in enumerate(indices[0]):
+        retrieved_chunks.append(
+            {
+                "chunk": chunks[idx]["text"],
+                "score": float(distances[0][i])
+            }
+        )
 
 
     return retrieved_chunks

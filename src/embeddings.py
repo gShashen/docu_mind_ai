@@ -1,4 +1,3 @@
-from sentence_transformers import SentenceTransformer
 import faiss
 
 def generate_embeddings(chunks,model):
@@ -26,7 +25,7 @@ if __name__ == "__main__":
 
     pages = exctract_text_from_pdf("data/test.pdf")
     chunks = chunk_text(pages)
-    embedings = generate_embeddings(chunks,SentenceTransformer("all-MiniLM-L6-v2"))
+    embedings = generate_embeddings(chunks)
     faiss_index = build_faiss_index(embedings)
     save_index(faiss_index,chunks)
 
