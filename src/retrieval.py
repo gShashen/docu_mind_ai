@@ -1,6 +1,6 @@
 from sentence_transformers import SentenceTransformer
 
-def retrieve_chunks(query,index,chunks,model,top_k=3):
+def retrieve_chunks(query,index,chunks,model,top_k=6):
     top_k = min(top_k, len(chunks))
     embedded_query = model.encode([query]).astype("float32")
     distances,indices = index.search(embedded_query,top_k)

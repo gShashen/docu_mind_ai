@@ -1,19 +1,16 @@
-import pymupdf
-
-def exctract_text_from_pdf(pdf_path):
+def exctract_text_from_pdf(file):
 
     pages = []
 
-    with pymupdf.open(pdf_path) as file:
-        for page in file:
+    for page in file:
 
-            page_info = {}            
-            text = page.get_text()
+        page_info = {}            
+        text = page.get_text()
 
-            page_info['page'] = page.number + 1
-            page_info['text'] = text
+        page_info['page'] = page.number + 1
+        page_info['text'] = text
 
-            pages.append(page_info)
+        pages.append(page_info)
 
     return pages
 

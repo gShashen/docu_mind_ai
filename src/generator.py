@@ -17,6 +17,8 @@ def generate_awnswer(query, retrived_chunks):
 
 
     prompt = f"""You are a helpful assistant. Answer the question based only on the context below.
+    If the answer is in the context, state it directly with the exact figure or statistic.
+    If the answer is genuinely not in the context, say so.
 
     Context:
     {text}
