@@ -14,7 +14,6 @@ def exctract_text_from_pdf(file):
 
     return pages
 
-
 def chunk_text(pages,chunk_size=100,overlap=20):
 
     chunks = []
@@ -35,13 +34,7 @@ def chunk_text(pages,chunk_size=100,overlap=20):
             )
 
             chunk_id +=1
-
-
     return chunks
-
-
-
-
 
 if __name__ == "__main__":
     pages = exctract_text_from_pdf("data/test.pdf")
@@ -50,4 +43,3 @@ if __name__ == "__main__":
     chunks = chunk_text(pages)
     print(f"Total chunks: {len(chunks)}")
     print(f"First chunk preview:\n{chunks[0]}")
-    

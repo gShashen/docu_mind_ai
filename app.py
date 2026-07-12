@@ -55,20 +55,27 @@ if user_input and st.session_state.index is not None:
     with st.chat_message("user"):
         st.write(user_input)
 
+    sources_page = None
+
     with st.spinner("Thinking"):
         retrieved = retrieve_chunks(user_input, st.session_state.index, st.session_state.chunks, st.session_state.model)
 
-        sources_page = sorted(set(r["page"] for r in retrieved))
-
-        answer = generate_awnswer(user_input, retrieved)
+        if retrieved[0]["score"] > 1.5:
+            answer = "The text does not contain any thing rellevent to the question"
+        else:
+            sources_page = sorted(set(r["page"] for r in retrieved))
+            answer = generate_awnswer(user_input, retrieved)
 
     st.session_state.messages.append({"role": "assistant", "content": answer})
+
     with st.chat_message("assistant"):
         st.write(answer)
 
-    with st.expander("sources"):
-        for page in sources_page:
-            st.write(f"Page {page}")
+    if sources_page is not None:
+        with st.expander("sources"):
+            for page in sources_page:
+                st.write(f"Page {page}")
 
 elif user_input and st.session_state.index is None:
+    
     st.warning("Please upload a PDF first.")
