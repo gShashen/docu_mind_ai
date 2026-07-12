@@ -47,34 +47,52 @@ user_input = st.chat_input("Ask a question about your document")
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.write(message["content"])
+    if message.get("sources"):
+        with st.expander("sources"):
+                for chunk in message["sources"]:
+                    st.write(f"Page {chunk["page"]}")
+                    with st.expander("text"):
+                        st.write(f" - {chunk["chunk"]}")
 
-   
+    
 if user_input and st.session_state.index is not None:
-    st.session_state.messages.append({"role": "user", "content": user_input})
+    st.session_state.messages.append(
+        {
+            "role": "user", 
+            "content": user_input
+            }
+        )
 
     with st.chat_message("user"):
         st.write(user_input)
 
-    sources_page = None
-
     with st.spinner("Thinking"):
         retrieved = retrieve_chunks(user_input, st.session_state.index, st.session_state.chunks, st.session_state.model)
 
-        if retrieved[0]["score"] > 1.5:
+        is_relevent = retrieved[0]["score"] <= 1.5
+
+        if not is_relevent:
             answer = "The text does not contain any thing rellevent to the question"
         else:
-            sources_page = sorted(set(r["page"] for r in retrieved))
             answer = generate_awnswer(user_input, retrieved)
 
-    st.session_state.messages.append({"role": "assistant", "content": answer})
+    st.session_state.messages.append(
+        {
+            "role": "assistant", 
+            "content": answer,
+            "sources": retrieved if is_relevent else None
+            }
+        )
 
     with st.chat_message("assistant"):
         st.write(answer)
 
-    if sources_page is not None:
+    if is_relevent:
         with st.expander("sources"):
-            for page in sources_page:
-                st.write(f"Page {page}")
+            for chunk in retrieved:
+                st.write(f"Page {chunk["page"]}")
+                with st.expander("text"):
+                    st.write(f" - {chunk["chunk"]}")
 
 elif user_input and st.session_state.index is None:
     
