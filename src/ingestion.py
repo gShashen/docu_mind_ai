@@ -1,5 +1,15 @@
 def exctract_text_from_pdf(file):
 
+    """
+    Extracts text from each page of a PDF and returns it as a list of dicts.
+
+    Args:
+        file (pymupdf.Document): An opened PyMuPDF document object.
+
+    Returns:
+        list: A list of dicts with keys 'page' (int) and 'text' (str).
+    """
+
     pages = []
 
     for page in file:
@@ -15,6 +25,18 @@ def exctract_text_from_pdf(file):
     return pages
 
 def chunk_text(pages,chunk_size=100,overlap=20):
+
+    """
+    Extract chunks from each page and returns it a list of dicts
+
+    Args:
+        pages (list): A list of dicts with keys 'page' (int) and 'text' (str).
+        chunk_size (int): Number of words per chunk. Defaults to 100.
+        overlap (int): Number of overlapping words between chunks. Defaults to 20.
+
+    Returns:
+        A list of dicts with keys 'chunk_id' (int), 'page' (int) and 'text' (str)
+    """
 
     chunks = []
     chunk_id = 0

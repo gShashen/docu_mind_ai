@@ -8,6 +8,19 @@ api_key = os.getenv("ANTHROPIC_API_KEY")
 client = anthropic.Anthropic(api_key=api_key)
 
 def generate_awnswer(query, retrived_chunks):
+
+
+    """
+        Generates an answer to the user's query using the Claude API.
+
+        Args:
+            query (str): The user's question.
+            retrived_chunks (list): A list of dicts with a 'chunk' key containing retrieved text.
+
+        Returns:
+            str: The generated answer from the Claude model.
+"""
+
     chunks = []
 
     for chunk in retrived_chunks:

@@ -1,6 +1,20 @@
 from sentence_transformers import SentenceTransformer
 
 def retrieve_chunks(query,index,chunks,model,top_k=6):
+
+    """
+    Retrieves the most relevant chunks for a given query using FAISS.
+
+    Args:
+        query (str): The user's question.
+        index (faiss.IndexFlatL2): The FAISS index to search.
+        chunks (list): A list of dicts with keys 'chunk_id', 'page', and 'text'.
+        model (SentenceTransformer): The embedding model used to encode the query.
+        top_k (int): Number of top results to retrieve. Defaults to 6.
+
+    Returns:
+        list: A list of dicts with keys 'chunk', 'page', and 'score'.
+    """
     top_k = min(top_k, len(chunks))
     embedded_query = model.encode([query]).astype("float32")
     distances,indices = index.search(embedded_query,top_k)
