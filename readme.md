@@ -42,4 +42,4 @@ PDF → Ingestion → Chunking → Embedding → FAISS Index → Retrieval → C
 
 ## Demo
 
-[Watch Demo] (2026-07-12_documind_demo.mp4)
+[Watch Demo] (https://www.linkedin.com/posts/shashen-galappaththi-4904a7372_ai-rag-python-ugcPost-7481996530149654529-R9WD/?utm_source=share&utm_medium=member_desktop&rcm=ACoAAFxD6-wB-aCJ-CnPWAUhrr8LTQQ31uVAi5E)
