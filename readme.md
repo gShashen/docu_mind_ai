@@ -39,3 +39,7 @@ PDF → Ingestion → Chunking → Embedding → FAISS Index → Retrieval → C
 - **Retrieval** - Embeds the user query and retrieves the most relevant chunks
 - **Claude API** - Generates an answer based on the retrieved chunks
 - **Answer** - Displays the answer with page sources in the Streamlit UI
+
+## Demo
+
+[Watch Demo] (2026-07-12_documind_demo.mp4)
